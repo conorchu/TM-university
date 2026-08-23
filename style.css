@@ -1,0 +1,444 @@
+/* ============================================================
+   TM University AR
+   ============================================================ */
+
+
+* {
+
+    box-sizing: border-box;
+
+}
+
+
+html,
+body {
+
+    width: 100%;
+
+    height: 100%;
+
+    margin: 0;
+
+    padding: 0;
+
+    overflow: hidden;
+
+    background: #000;
+
+    font-family:
+        Arial,
+        "Noto Sans TC",
+        sans-serif;
+
+}
+
+
+/* ============================================================
+   AR Camera
+   ============================================================ */
+
+#ar-container {
+
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    z-index: 1;
+
+}
+
+
+#ar-container canvas {
+
+    display: block;
+
+    width: 100% !important;
+
+    height: 100% !important;
+
+}
+
+
+/* ============================================================
+   Start Screen
+   ============================================================ */
+
+.overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 100;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(0, 0, 0, 0.82);
+
+}
+
+
+.card {
+
+    width: min(
+        420px,
+        100%
+    );
+
+    padding: 35px 25px;
+
+    border-radius: 24px;
+
+    background:
+        rgba(255, 255, 255, 0.96);
+
+    text-align: center;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0, 0, 0, 0.45);
+
+}
+
+
+.logo {
+
+    font-size: 52px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.card h1 {
+
+    margin: 0;
+
+    font-size: 30px;
+
+}
+
+
+.subtitle {
+
+    margin-top: 8px;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+}
+
+
+.description {
+
+    margin-top: 20px;
+
+    color: #666;
+
+    line-height: 1.8;
+
+    font-size: 15px;
+
+}
+
+
+/* ============================================================
+   Start Button
+   ============================================================ */
+
+#start-button {
+
+    width: 100%;
+
+    margin-top: 25px;
+
+    padding: 15px 20px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #111;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+#start-button:active {
+
+    transform: scale(0.98);
+
+}
+
+
+#start-button:disabled {
+
+    opacity: 0.6;
+
+    cursor: not-allowed;
+
+}
+
+
+/* ============================================================
+   Status
+   ============================================================ */
+
+.status {
+
+    margin-top: 15px;
+
+    color: #777;
+
+    font-size: 14px;
+
+}
+
+
+/* ============================================================
+   HUD
+   ============================================================ */
+
+.hud {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 50;
+
+    pointer-events: none;
+
+}
+
+
+.hud-top {
+
+    position: absolute;
+
+    top: 20px;
+
+    left: 20px;
+
+    right: 20px;
+
+    display: flex;
+
+    justify-content: center;
+
+}
+
+
+.location-box {
+
+    padding: 10px 18px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(0, 0, 0, 0.65);
+
+    color: white;
+
+    text-align: center;
+
+    backdrop-filter: blur(8px);
+
+}
+
+
+.label {
+
+    display: block;
+
+    margin-bottom: 3px;
+
+    font-size: 11px;
+
+    opacity: 0.7;
+
+}
+
+
+.location {
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+}
+
+
+/* ============================================================
+   Instruction
+   ============================================================ */
+
+.hud-bottom {
+
+    position: absolute;
+
+    left: 20px;
+
+    right: 20px;
+
+    bottom: 30px;
+
+    display: flex;
+
+    justify-content: center;
+
+}
+
+
+.instruction {
+
+    max-width: 90%;
+
+    padding: 12px 20px;
+
+    border-radius: 14px;
+
+    background:
+        rgba(0, 0, 0, 0.68);
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    text-align: center;
+
+    backdrop-filter: blur(8px);
+
+}
+
+
+/* ============================================================
+   Arrival
+   ============================================================ */
+
+.arrival {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 200;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(0, 0, 0, 0.75);
+
+}
+
+
+.arrival.show {
+
+    display: flex;
+
+}
+
+
+.arrival-card {
+
+    width: min(
+        360px,
+        100%
+    );
+
+    padding: 40px 25px;
+
+    border-radius: 24px;
+
+    background: white;
+
+    text-align: center;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0, 0, 0, 0.45);
+
+}
+
+
+.arrival-icon {
+
+    font-size: 60px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.arrival-card h2 {
+
+    margin: 0;
+
+    font-size: 30px;
+
+}
+
+
+.arrival-card p {
+
+    margin-top: 12px;
+
+    color: #666;
+
+}
+
+
+/* ============================================================
+   Mobile
+   ============================================================ */
+
+@media (max-width: 600px) {
+
+    .card {
+
+        padding: 30px 20px;
+
+    }
+
+
+    .card h1 {
+
+        font-size: 26px;
+
+    }
+
+
+    .instruction {
+
+        font-size: 15px;
+
+    }
+
+}

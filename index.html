@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html lang="zh-Hant">
+
+<head>
+
+    <meta charset="UTF-8">
+
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+
+    <title>
+        北醫大 AR 導引
+    </title>
+
+
+    <!-- =====================================================
+         Three.js Import Map
+
+         非常重要：
+
+         MindAR 內部會使用：
+
+         import ... from "three"
+
+         所以瀏覽器需要知道 three 對應哪個 CDN。
+         ===================================================== -->
+
+    <script type="importmap">
+
+    {
+        "imports": {
+
+            "three":
+                "https://unpkg.com/three@0.160.0/build/three.module.js",
+
+            "three/addons/":
+                "https://unpkg.com/three@0.160.0/examples/jsm/"
+
+        }
+    }
+
+    </script>
+
+
+    <!-- =====================================================
+         CSS
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="./style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         AR Camera
+         ===================================================== -->
+
+    <div id="ar-container"></div>
+
+
+    <!-- =====================================================
+         Start Screen
+         ===================================================== -->
+
+    <div
+        id="start-screen"
+        class="overlay"
+    >
+
+        <div class="card">
+
+
+            <div class="logo">
+                🏸
+            </div>
+
+
+            <h1>
+                北醫大
+            </h1>
+
+
+            <p class="subtitle">
+                AR 導引
+            </p>
+
+
+            <p class="description">
+
+                請開啟相機，並對準指定圖片
+
+                <br>
+
+                系統會透過 AR 導引你前往目的地
+
+            </p>
+
+
+            <button
+                id="start-button"
+            >
+                開啟 AR 相機
+            </button>
+
+
+            <div
+                id="status"
+                class="status"
+            >
+                尚未啟動
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         HUD
+         ===================================================== -->
+
+    <div
+        id="hud"
+        class="hud"
+    >
+
+
+        <div class="hud-top">
+
+            <div class="location-box">
+
+                <span class="label">
+                    目前位置
+                </span>
+
+
+                <span
+                    id="current-location"
+                    class="location"
+                >
+                    尚未辨識
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="hud-bottom">
+
+            <div
+                id="instruction"
+                class="instruction"
+            >
+                請對準第一張場景圖片
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         Arrival
+         ===================================================== -->
+
+    <div
+        id="arrival"
+        class="arrival"
+    >
+
+        <div class="arrival-card">
+
+
+            <div class="arrival-icon">
+                🏸
+            </div>
+
+
+            <h2>
+                已抵達
+            </h2>
+
+
+            <p>
+                歡迎來到目的地
+            </p>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         App
+         ===================================================== -->
+
+    <script
+        type="module"
+        src="./app.js"
+    ></script>
+
+
+</body>
+
+</html>
