@@ -123,13 +123,6 @@ const ASSET_PATH =
 // ============================================================
 // Goose + Arrow 素材
 // ============================================================
-//
-// forward → goose_forward + arrow_forward
-// left    → goose_left    + arrow_left
-// right   → goose_right   + arrow_right
-// arrived → goose_arrived + arrow_arrived
-//
-// ============================================================
 
 const DIRECTION_ASSETS = {
 
@@ -364,40 +357,22 @@ async function createDirectionGroup(
     // ARRIVED
     // ========================================================
     //
-    // Target 7 使用：
+    // Arrow：
+    //   上方、主要物件
     //
-    // goose_arrived.png
-    // +
-    // arrow_arrived.png
+    // Goose：
+    //   Arrow 下方偏右
     //
-    // 這兩個物件的比例獨立設定。
+    // Goose 尺寸：
+    //   原本 1.45 × 1.45
+    //   ↓
+    //   約 1/3
+    //   ↓
+    //   0.48 × 0.48
+    //
     // ========================================================
 
     if (direction === "arrived") {
-
-        // ----------------------------------------------------
-        // Arrived Goose
-        // ----------------------------------------------------
-
-        const goose =
-            createSprite(
-                gooseTexture,
-                1.45,
-                1.45
-            );
-
-
-        goose.position.set(
-            0,
-            0.45,
-            0.02
-        );
-
-
-        group.add(
-            goose
-        );
-
 
         // ----------------------------------------------------
         // Arrived Arrow
@@ -411,15 +386,48 @@ async function createDirectionGroup(
             );
 
 
+        // Arrow 在上方
+
         arrow.position.set(
             0,
-            -0.65,
-            0.01
+            0.35,
+            0.02
         );
 
 
         group.add(
             arrow
+        );
+
+
+        // ----------------------------------------------------
+        // Arrived Goose
+        // ----------------------------------------------------
+        //
+        // 尺寸約為之前的 1/3
+        //
+
+        const goose =
+            createSprite(
+                gooseTexture,
+                0.48,
+                0.48
+            );
+
+
+        // Goose：
+        // 箭頭下方
+        // 並且稍微偏右
+
+        goose.position.set(
+            0.48,
+            -0.60,
+            0.03
+        );
+
+
+        group.add(
+            goose
         );
 
 
@@ -799,19 +807,17 @@ async function updateRoute(
         );
 
         console.log(
+            "Goose：Arrow 下方偏右"
+        );
+
+        console.log(
+            "Goose：目前尺寸約 1/3"
+        );
+
+        console.log(
             "================================"
         );
 
-
-        // ----------------------------------------------------
-        // 不再移除 AR 物件
-        //
-        // 而是改成：
-        //
-        // goose_arrived.png
-        // +
-        // arrow_arrived.png
-        // ----------------------------------------------------
 
         hideArrival();
 
@@ -1111,6 +1117,14 @@ window.addEventListener(
 
         console.log(
             "Arrived Goose + Arrow：ON"
+        );
+
+        console.log(
+            "Arrived Goose Position：下方偏右"
+        );
+
+        console.log(
+            "Arrived Goose Size：1/3"
         );
 
         console.log(
