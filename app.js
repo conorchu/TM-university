@@ -2,6 +2,7 @@
 // TM University AR
 // MindAR + Three.js Module
 //
+// ============================================================
 // AR 物件配置：
 //
 //             ↑
@@ -28,6 +29,18 @@
 // ✗ 幾何箭頭
 // ✗ GLTFLoader
 // ============================================================
+
+
+// ============================================================
+// ★ 羽球+1 網址
+// ============================================================
+//
+// 請把這裡改成你的「羽球+1」正式網址。
+//
+// ============================================================
+
+const BADMINTON_PLUS_URL =
+    "https://你的羽球+1網址";
 
 
 // ============================================================
@@ -136,10 +149,6 @@ const ASSET_PATH =
 
 const DIRECTION_ASSETS = {
 
-    // --------------------------------------------------------
-    // 前進
-    // --------------------------------------------------------
-
     forward: {
 
         goose:
@@ -150,10 +159,6 @@ const DIRECTION_ASSETS = {
 
     },
 
-
-    // --------------------------------------------------------
-    // 左轉
-    // --------------------------------------------------------
 
     left: {
 
@@ -166,10 +171,6 @@ const DIRECTION_ASSETS = {
     },
 
 
-    // --------------------------------------------------------
-    // 右轉
-    // --------------------------------------------------------
-
     right: {
 
         goose:
@@ -180,10 +181,6 @@ const DIRECTION_ASSETS = {
 
     },
 
-
-    // --------------------------------------------------------
-    // 抵達
-    // --------------------------------------------------------
 
     arrived: {
 
@@ -411,16 +408,6 @@ async function createDirectionGroup(
 
     // ========================================================
     // ARRIVED
-    //
-    // 使用：
-    //
-    // goose_arrived.png
-    // arrow_arrived.png
-    //
-    // Goose：
-    // ✓ Arrow 下方
-    // ✓ 稍微偏右
-    //
     // ========================================================
 
     if (direction === "arrived") {
@@ -439,8 +426,6 @@ async function createDirectionGroup(
                 1.45
             );
 
-
-        // Arrow 在上方
 
         arrow.position.set(
 
@@ -471,10 +456,6 @@ async function createDirectionGroup(
                 1.45
             );
 
-
-        // Goose：
-        // ↓ 下方
-        // → 稍微偏右
 
         goose.position.set(
 
@@ -547,8 +528,6 @@ async function createDirectionGroup(
         );
 
 
-    // Arrow 永遠在上面
-
     arrow.position.set(
 
         0,
@@ -598,11 +577,6 @@ async function createDirectionGroup(
             gooseHeight
         );
 
-
-    // Goose：
-    //
-    // ↓ 永遠在 Arrow 下方
-    // → 永遠稍微偏右
 
     goose.position.set(
 
@@ -905,7 +879,7 @@ async function updateRoute(
 
 
         // ----------------------------------------------------
-        // 顯示新的 arrived Goose + Arrow
+        // 顯示 arrived Goose + Arrow
         // ----------------------------------------------------
 
         await showDirection(
@@ -1036,6 +1010,12 @@ async function startAR() {
         );
 
 
+    const backButton =
+        document.querySelector(
+            "#back-button"
+        );
+
+
     try {
 
         // ----------------------------------------------------
@@ -1126,6 +1106,19 @@ async function startAR() {
         }
 
 
+        // ----------------------------------------------------
+        // ★ 顯示「返回羽球+1」
+        // ----------------------------------------------------
+
+        if (backButton) {
+
+            backButton.classList.add(
+                "show"
+            );
+
+        }
+
+
     } catch (error) {
 
         console.error(
@@ -1158,6 +1151,143 @@ async function startAR() {
 
 
 // ============================================================
+// ★ 返回羽球+1
+// ============================================================
+
+async function exitAR() {
+
+    console.log(
+        "================================"
+    );
+
+    console.log(
+        "⬅️ 返回羽球+1"
+    );
+
+
+    // --------------------------------------------------------
+    // 隱藏返回按鈕
+    // --------------------------------------------------------
+
+    const backButton =
+        document.querySelector(
+            "#back-button"
+        );
+
+
+    if (backButton) {
+
+        backButton.classList.remove(
+            "show"
+        );
+
+    }
+
+
+    // --------------------------------------------------------
+    // 移除目前 AR 物件
+    // --------------------------------------------------------
+
+    removeCurrentARGroup();
+
+
+    // --------------------------------------------------------
+    // 停止 Three.js Render Loop
+    // --------------------------------------------------------
+
+    renderer.setAnimationLoop(
+        null
+    );
+
+
+    // --------------------------------------------------------
+    // 停止 MindAR
+    // --------------------------------------------------------
+
+    try {
+
+        await mindarThree.stop();
+
+        console.log(
+            "MindAR 已停止"
+        );
+
+    } catch (error) {
+
+        console.warn(
+            "MindAR stop 發生問題：",
+            error
+        );
+
+    }
+
+
+    // --------------------------------------------------------
+    // 額外停止相機串流
+    // --------------------------------------------------------
+
+    try {
+
+        const video =
+            arContainer.querySelector(
+                "video"
+            );
+
+
+        if (video) {
+
+            if (
+                video.srcObject
+            ) {
+
+                const tracks =
+                    video.srcObject.getTracks();
+
+
+                tracks.forEach(
+                    (track) => {
+
+                        track.stop();
+
+                    }
+                );
+
+            }
+
+
+            video.pause();
+
+            video.srcObject =
+                null;
+
+        }
+
+    } catch (error) {
+
+        console.warn(
+            "相機串流停止時發生問題：",
+            error
+        );
+
+    }
+
+
+    console.log(
+        "相機已停止"
+    );
+
+
+    // --------------------------------------------------------
+    // 跳轉到羽球+1
+    // --------------------------------------------------------
+
+    window.location.href =
+        BADMINTON_PLUS_URL;
+
+}
+
+
+// ============================================================
 // 開啟 AR 按鈕
 // ============================================================
 
@@ -1172,6 +1302,26 @@ if (startButton) {
     startButton.addEventListener(
         "click",
         startAR
+    );
+
+}
+
+
+// ============================================================
+// ★ 返回羽球+1 按鈕
+// ============================================================
+
+const backButton =
+    document.querySelector(
+        "#back-button"
+    );
+
+
+if (backButton) {
+
+    backButton.addEventListener(
+        "click",
+        exitAR
     );
 
 }
@@ -1219,6 +1369,10 @@ window.addEventListener(
 
         console.log(
             "Three.js：Module"
+        );
+
+        console.log(
+            "Back Button：ON"
         );
 
         console.log(

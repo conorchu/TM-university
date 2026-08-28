@@ -231,6 +231,74 @@ body {
 }
 
 
+/* ============================================================
+   返回羽球+1
+   ============================================================ */
+
+#back-button {
+
+    position: absolute;
+
+    top: 20px;
+
+    right: 20px;
+
+    z-index: 100;
+
+    pointer-events: auto;
+
+    display: none;
+
+    padding: 10px 16px;
+
+    border: none;
+
+    border-radius: 999px;
+
+    background:
+        rgba(0, 0, 0, 0.68);
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    backdrop-filter: blur(8px);
+
+    -webkit-backdrop-filter: blur(8px);
+
+    box-shadow:
+        0 4px 15px
+        rgba(0, 0, 0, 0.25);
+
+}
+
+
+/* ============================================================
+   AR 啟動後顯示
+   ============================================================ */
+
+#back-button.show {
+
+    display: block;
+
+}
+
+
+#back-button:active {
+
+    transform: scale(0.96);
+
+}
+
+
+/* ============================================================
+   HUD Top
+   ============================================================ */
+
 .hud-top {
 
     position: absolute;
@@ -438,6 +506,19 @@ body {
     .instruction {
 
         font-size: 15px;
+
+    }
+
+
+    #back-button {
+
+        top: 15px;
+
+        right: 15px;
+
+        padding: 9px 14px;
+
+        font-size: 13px;
 
     }
 
